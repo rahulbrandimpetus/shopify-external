@@ -8,7 +8,7 @@ app.use(express.json());
 // Enable CORS for frontend testing
 app.use((req, res, next) => {
   const allowedOrigins = [
-    'https://yourdomain.com',
+    'https://rd-brandimp.myshopify.com/',
     'https://anotherdomain.com',
     'http://localhost:3000',  // for local development
     'http://localhost:8080'   // for local testing
