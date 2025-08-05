@@ -2,23 +2,19 @@ const express = require('express');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Middleware
 app.use(express.json());
 
 // Enable CORS for frontend testing
 app.use((req, res, next) => {
   const allowedOrigins = [
     'https://rd-brandimp.myshopify.com',
-    'https://anotherdomain.com',
-    'http://localhost:3000',  // for local development
-    'http://localhost:8080'   // for local testing
+    'http://localhost:3000',  
+
   ];
-  
   const origin = req.headers.origin;
   if (allowedOrigins.includes(origin)) {
     res.header('Access-Control-Allow-Origin', origin);
   }
-  
   res.header('Access-Control-Allow-Headers', 'Content-Type');
   res.header('Access-Control-Allow-Methods', 'GET, POST');
   next();
