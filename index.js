@@ -7,7 +7,18 @@ app.use(express.json());
 
 // Enable CORS for frontend testing
 app.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', '*');
+  const allowedOrigins = [
+    'https://yourdomain.com',
+    'https://anotherdomain.com',
+    'http://localhost:3000',  // for local development
+    'http://localhost:8080'   // for local testing
+  ];
+  
+  const origin = req.headers.origin;
+  if (allowedOrigins.includes(origin)) {
+    res.header('Access-Control-Allow-Origin', origin);
+  }
+  
   res.header('Access-Control-Allow-Headers', 'Content-Type');
   res.header('Access-Control-Allow-Methods', 'GET, POST');
   next();
@@ -103,8 +114,8 @@ app.get('/health', (req, res) => {
   });
 });
 
-// 404 handler
-app.use('*', (req, res) => {
+// 404 handler - FIXED: Use middleware function instead of '*' route
+app.use((req, res) => {
   res.status(404).json({
     success: false,
     message: 'Route not found. Visit / for API documentation.'
